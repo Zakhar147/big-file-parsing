@@ -1,9 +1,7 @@
 import sys
 
-from modules.parse.file_parse import FileParse
-
 from modules.utils.utils import get_usage
-
+from modules.file_parsing.start_parsing import start_parsing
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
@@ -11,7 +9,7 @@ if __name__ == "__main__":
     else:
         file_path = sys.argv[1]
         try:
-            parser = FileParse(file_path)
-            print(parser.parse_file())
+            parsing_result = start_parsing(file_path)
+            print(parsing_result)
         except Exception as e:
             print(e)
