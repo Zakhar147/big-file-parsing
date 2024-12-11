@@ -1,7 +1,5 @@
 import threading
 
-from modules.utils.make import make_result_container
-
 class ThreadManager:
     def __init__(self, chunk_size, file_size, task):
         self.num_chunks = (file_size + chunk_size - 1) // chunk_size
@@ -17,12 +15,12 @@ class ThreadManager:
             thread_data.append((i, start, size))
         return thread_data
 
-    def start_threads(self, thread_data, results):
+    def start_threads(self, thread_data, chunk_processor, count_type, results):
         threads = []
         for idx, start, size in thread_data:
             thread = threading.Thread(
-                target=self.task, 
-                args=(idx, start, size, results)
+                target=self.task,
+                args=(chunk_processor, count_type, idx, start, size, results)
             )
             threads.append(thread)
             thread.start()
@@ -32,9 +30,9 @@ class ThreadManager:
         for thread in threads:
             thread.join()
 
-    def run_threads_and_get_results(self):
-        results = make_result_container(self.num_chunks)
+    def run_threads_for_type(self, chunk_processor, count_type):
+        results = [0] * self.num_chunks
         thread_data = self.prepare_thread_data()
-        threads = self.start_threads(thread_data, results)
+        threads = self.start_threads(thread_data, chunk_processor, count_type, results)
         self.join_threads(threads)
-        return results
+        return sum(results)

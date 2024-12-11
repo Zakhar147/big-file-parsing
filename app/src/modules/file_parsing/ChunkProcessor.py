@@ -3,11 +3,15 @@ class ChunkProcessor:
         self.file_handler = file_handler
         self.chunk_size = chunk_size
 
-    def count_all_in_chunk(self, start, size):
+    def count_letters_in_chunk(self, start, size):
         chunk = self.file_handler.read_chunk(start, size)
-        
-        letters = sum(1 for char in chunk if char.isalpha())
-        digits = sum(1 for char in chunk if char.isdigit())
-        spaces = sum(1 for char in chunk if char == ' ')
-        
-        return {"letters": letters, "digits": digits, "spaces": spaces}    
+        return sum(1 for char in chunk if char.isalpha())
+
+    def count_digits_in_chunk(self, start, size):
+        chunk = self.file_handler.read_chunk(start, size)
+        return sum(1 for char in chunk if char.isdigit())
+
+    def count_spaces_in_chunk(self, start, size):
+        chunk = self.file_handler.read_chunk(start, size)
+        return sum(1 for char in chunk if char == ' ')
+    

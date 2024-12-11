@@ -12,10 +12,16 @@ def start_parsing(file_path):
     thread_manager = ThreadManager(
         file.chunk_size, 
         file.file_size, 
-        lambda idx, start, size, results: thread_task(chunk_processor, idx, start, size, results)
+        thread_task
     )
 
-    results = thread_manager.run_threads_and_get_results()
-    layout = make_layout(results)
+    total_letters = thread_manager.run_threads_for_type(chunk_processor, 'letters')
+    # total_digits = thread_manager.run_threads_for_type(chunk_processor, 'digits')
+    # total_spaces = thread_manager.run_threads_for_type(chunk_processor, 'spaces')
 
-    return layout
+    return (
+        f"\nTotal characters breakdown:\n"
+        f"- Letters: {total_letters}\n"
+        # f"- Digits: {total_digits}\n"
+        # f"- Spaces: {total_spaces}"
+    )
