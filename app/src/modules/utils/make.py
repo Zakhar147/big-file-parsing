@@ -22,4 +22,3 @@ def make_layout(results):
         f"- Digits: {total_counts['digits']}\n"
         f"- Spaces: {total_counts['spaces']}"
     )
-    
