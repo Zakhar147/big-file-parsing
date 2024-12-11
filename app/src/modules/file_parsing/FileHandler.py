@@ -1,4 +1,5 @@
-from modules.utils.utils import calc_chunk_size, calc_file_size, validate_file_path
+from modules.utils.calc import calc_chunk_size, calc_file_size
+from modules.utils.validate import validate_file_path
 
 class FileHandler:
     def __init__(self, file_path):
