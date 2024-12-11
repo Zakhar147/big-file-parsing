@@ -1,0 +1,5 @@
+venv/
+
+__pycache__/
+
+txt_test/big.txt
